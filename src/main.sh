@@ -1,18 +1,12 @@
-for i in {1..10}; do
-    python3 main.py 1 10000
-done
 
+for step in {2..8}; do
+    limit=$((10 ** $step))
 
-for i in {1..10}; do
-    python3 main.py 2 10000
-done
+    for thread in 1 2 4 8; do
+        for i in {1..10}; do
+            python3 main.py $thread $limit
 
-
-for i in {1..10}; do
-    python3 main.py 4 1000
-done
-
-
-for i in {1..10}; do
-    python3 main.py 8 10000
+            sleep 1
+        done
+    done
 done
