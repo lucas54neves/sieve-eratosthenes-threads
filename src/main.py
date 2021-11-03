@@ -4,14 +4,20 @@ import sys
 
 is_primes = []
 
+semaphore = Semaphore()
+
 class SieveThread(Thread):
     def __init__(self):
         Thread.__init__(self)
     
     def run(self, index=None, limit=None):
         if index and limit:
+            semaphore.acquire()
+
             for i in range(index * index, limit + 1, index):
                 is_primes[i] = False
+
+            semaphore.release()
 
 
 def sieve_eratosthenes(limit, threads):
@@ -37,6 +43,8 @@ if __name__ == '__main__':
     
     limit = int(sys.argv[2])
 
+    begin = datetime.now()
+
     threads = []
 
     for _ in range(number_of_threads):
@@ -46,8 +54,6 @@ if __name__ == '__main__':
 
         thread.start()
 
-    begin = datetime.now()
-
     sieve_eratosthenes(limit, threads)
 
     for thread in threads:
@@ -55,8 +61,10 @@ if __name__ == '__main__':
     
     end = datetime.now()
 
-    with open('log.txt', 'a') as file_object:
-        file_object.write(f'Time: {(end - begin).microseconds} ms, Number of threads: {number_of_threads}, Limit: {limit}\n')
+    time = (end - begin).total_seconds()
+
+    with open(f'../doc/log.txt', 'a') as file_object:
+        file_object.write(f'Time: {time} seg, Number of threads: {number_of_threads}, Limit: {limit}\n')
 
         file_object.close()
 
