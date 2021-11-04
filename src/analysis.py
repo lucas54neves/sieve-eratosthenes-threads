@@ -94,7 +94,8 @@ def get_mean_and_std_by_thread(dataframe):
             processed_data,
             x = 'limit',
             y = 'mean',
-            title = f'Tempo médio por quantidade de números com {number} {"threads" if thread == 1 else "threads"}'
+            title = f'Tempo médio por quantidade de números com {number} {"threads" if thread == 1 else "threads"}',
+            log_x=True
         )
 
         fig.update_xaxes(
@@ -104,6 +105,19 @@ def get_mean_and_std_by_thread(dataframe):
         fig.update_yaxes(
             title_text = 'Tempo em segundos'
         )
+        
+
+        fig.update_xaxes(
+            tickvals=[
+                100,
+                1000,
+                10000,
+                100000,
+                1000000,
+                10000000,
+                100000000
+            ]
+        )
 
         fig.write_image(f'../images/thread{thread}-mean.png')
 
@@ -111,7 +125,8 @@ def get_mean_and_std_by_thread(dataframe):
             processed_data,
             x = 'limit',
             y = 'std',
-            title = f'Desvio padrão por quantidade de números com {number} {"threads" if thread == 1 else "threads"}'
+            title = f'Desvio padrão por quantidade de números com {number} {"threads" if thread == 1 else "threads"}',
+            log_x=True
         )
 
         fig.update_xaxes(
@@ -120,6 +135,18 @@ def get_mean_and_std_by_thread(dataframe):
 
         fig.update_yaxes(
             title_text = 'Desvio padrão em segundos'
+        )        
+
+        fig.update_xaxes(
+            tickvals=[
+                100,
+                1000,
+                10000,
+                100000,
+                1000000,
+                10000000,
+                100000000
+            ]
         )
 
         fig.write_image(f'../images/thread{thread}-std.png')
@@ -170,7 +197,8 @@ def save_image_with_mean_and_std_for_all_threads(data):
         data_merged,
         x = 'limit',
         y = 'mean',
-        color = 'threads'
+        color = 'threads',
+        log_x=True
     )
 
     fig.update_layout(
@@ -178,6 +206,18 @@ def save_image_with_mean_and_std_for_all_threads(data):
         xaxis_title = 'Quantidade de números',
         yaxis_title = 'Tempo em segundos',
         legend_title = 'Threads'
+    )
+
+    fig.update_xaxes(
+        tickvals=[
+            100,
+            1000,
+            10000,
+            100000,
+            1000000,
+            10000000,
+            100000000
+        ]
     )
 
     fig.write_image(f'../images/mean-all.png')
@@ -229,7 +269,8 @@ def get_speedup_by_thread(data):
         speedup_df,
         x = 'limit',
         y = 'speedup',
-        color = 'threads'
+        color = 'threads',
+        log_x=True
     )
 
     fig.update_layout(
@@ -237,6 +278,18 @@ def get_speedup_by_thread(data):
         xaxis_title = 'Quantidade de números',
         yaxis_title = 'Speedup',
         legend_title = 'Threads'
+    )
+
+    fig.update_xaxes(
+        tickvals=[
+            100,
+            1000,
+            10000,
+            100000,
+            1000000,
+            10000000,
+            100000000
+        ]
     )
 
     fig.write_image(f'../images/speedup.png')
@@ -313,7 +366,8 @@ def calculate_efficiency(data):
         data,
         x = 'limit',
         y = 'efficiency',
-        color = 'threads'
+        color = 'threads',
+        log_x=True
     )
 
     fig.update_layout(
@@ -361,7 +415,8 @@ def calculate_karp_flatt_metric(data):
         data,
         x = 'limit',
         y = 'karp_flatt_metric',
-        color = 'threads'
+        color = 'threads',
+        log_x=True
     )
 
     fig.update_layout(
@@ -369,6 +424,18 @@ def calculate_karp_flatt_metric(data):
         xaxis_title = 'Quantidade de números',
         yaxis_title = 'Métrica Karp-Flatt',
         legend_title = 'Threads'
+    )
+
+    fig.update_xaxes(
+        tickvals=[
+            100,
+            1000,
+            10000,
+            100000,
+            1000000,
+            10000000,
+            100000000
+        ]
     )
 
     fig.write_image(f'../images/karp-flatt-metric.png')
