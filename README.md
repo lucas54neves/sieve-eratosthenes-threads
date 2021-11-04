@@ -34,7 +34,7 @@ pip install -r requirements.txt
 ### Parallel program
 
 ```
-python main.py
+python main.py <number-of-threads> <number-of-limit>
 ```
 
 ### Execution script
